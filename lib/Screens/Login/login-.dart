@@ -6,7 +6,7 @@ import '../Login/authform.dart';
 class Login2 extends StatefulWidget {
   @override
   _Login2State createState() => _Login2State();
-  bool _isLogin = true;
+  final bool _isLogin = true;
 }
 
 class _Login2State extends State<Login2> {
@@ -46,7 +46,7 @@ class _Login2State extends State<Login2> {
                             BoxShadow(
                               color: Color.fromRGBO(196, 135, 198, .3),
                               blurRadius: 20,
-                              offset: Offset(0, 10),
+                              spreadRadius: 7,
                             )
                           ]),
                       child: const authform(),

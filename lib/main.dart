@@ -1,14 +1,9 @@
 //this is the main dart file foe the project
 //this is the first file that gets executed
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:proces/Screens/Home/homepage.dart';
-import 'package:proces/Screens/calendar/calendar.dart';
-import 'package:proces/Screens/processess/process.dart';
 import 'Screens/Home/home.dart';
 import 'Screens/onboarding/onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class App extends StatelessWidget {
@@ -17,9 +12,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Proces Management System',
+      //themeMode: ThemeMode.system,
+      //darkTheme: MyThemes.darkTheme,
+
+      // theme: MyThemes.lightTheme,
       theme: ThemeData(
           primarySwatch: Colors.blue,
           backgroundColor: Colors.blue,
@@ -36,7 +35,7 @@ class App extends StatelessWidget {
           builder: (BuildContext context, userSnapshot) {
             final screenHeight = MediaQuery.of(context).size.height;
             if (userSnapshot.hasData) {
-              return (home());
+              return (const home());
             }
             //if the user has no logged in data from past
             //the first page opens to the user

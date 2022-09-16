@@ -14,7 +14,6 @@ import 'package:proces/Screens/user/edit_user.dart';
 import 'package:proces/controller/create_new_project_controller.dart';
 import 'package:proces/Screens/processess/process.dart';
 import 'package:proces/Screens/user/user_profile.dart';
-import '../Home/pieChart.dart';
 import 'package:proces/Screens/user_stories/userStories.dart';
 
 //Creating Stateful widget for the class
@@ -38,7 +37,7 @@ class _homeState extends State<home> {
     super.initState();
   }
 
-  final padding = EdgeInsets.symmetric(horizontal: 20);
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
   //gettig the screens for bottomnavigation ready
   final screens = [
     const Calendar(),
@@ -73,106 +72,115 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-          child: Material(
-        color: Colors.blueGrey,
-        child: ListView(
-          children: <Widget>[
-            const SizedBox(height: 48),
-            buildMenuItem(
-              text: "Home",
-              icon: Icons.home,
-              onClicked: () => selectedItem(context, 0),
-            ),
-            //defining visibility for user
-            // // Visibility(
-            // //   visible: authourization,
-            // child:
-            SizedBox(height: 20), //),
-            buildMenuItem(
-              text: "Processes",
-              icon: Icons.article_rounded,
-              onClicked: () => selectedItem(context, 1),
-            ),
-            const SizedBox(height: 20),
-            buildMenuItem(
-              text: "Tasks",
-              icon: Icons.task,
-              onClicked: () => selectedItem(context, 3),
-            ),
-            const SizedBox(height: 20),
-            buildMenuItem(
-              text: "User-stories",
-              icon: Icons.amp_stories_rounded,
-              onClicked: () => selectedItem(context, 4),
-            ),
-            //defining visibility for user
+    return SafeArea(
+      child: Scaffold(
+        drawer: Drawer(
+            child: Material(
+          color: const Color.fromARGB(255, 104, 178, 238),
+          child: ListView(
+            children: <Widget>[
+              const SizedBox(height: 48),
+              buildMenuItem(
+                text: "Home",
+                icon: Icons.home,
+                onClicked: () => selectedItem(context, 0),
+              ),
+              //defining visibility for user
+              // // Visibility(
+              // //   visible: authourization,
+              // child:
+              const SizedBox(height: 20), //),
+              buildMenuItem(
+                text: "Processes",
+                icon: Icons.article_rounded,
+                onClicked: () => selectedItem(context, 1),
+              ),
+              const SizedBox(height: 20),
+              buildMenuItem(
+                text: "Tasks",
+                icon: Icons.task,
+                onClicked: () => selectedItem(context, 3),
+              ),
+              const SizedBox(height: 20),
+              buildMenuItem(
+                text: "User-stories",
+                icon: Icons.amp_stories_rounded,
+                onClicked: () => selectedItem(context, 4),
+              ),
+              //defining visibility for user
 
-            // Visibility(
-            //   visible: authourization,
-            // child:
-            const SizedBox(height: 20),
-            buildMenuItem(
-              text: "Create New User",
-              icon: Icons.verified_user_sharp,
-              onClicked: () => selectedItem(context, 5),
-            ),
-            // Visibility(
-            //   visible: authourization,
-            // child:
-            const SizedBox(height: 20),
-            buildMenuItem(
-              text: "View User",
-              icon: Icons.edit_attributes_sharp,
-              onClicked: () => selectedItem(context, 6),
-            ),
-            const SizedBox(height: 20),
-            buildMenuItem(
-              text: "Logout",
-              icon: Icons.logout,
-              onClicked: () => selectedItem(context, 7),
-            ),
-          ],
+              // Visibility(
+              //   visible: authourization,
+              // child:
+              const SizedBox(height: 20),
+              buildMenuItem(
+                text: "Create New User",
+                icon: Icons.verified_user_sharp,
+                onClicked: () => selectedItem(context, 5),
+              ),
+              // Visibility(
+              //   visible: authourization,
+              // child:
+              const SizedBox(height: 20),
+              buildMenuItem(
+                text: "View User",
+                icon: Icons.edit_attributes_sharp,
+                onClicked: () => selectedItem(context, 6),
+              ),
+              const SizedBox(height: 20),
+              buildMenuItem(
+                text: "Logout",
+                icon: Icons.logout,
+                onClicked: () => selectedItem(context, 7),
+              ),
+            ],
+          ),
+        )),
+        //Appbar defining for the page
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.black),
+          centerTitle: true,
+          title: const Text(
+            "PROCESO",
+            style: TextStyle(
+                fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
         ),
-      )),
-      //Appbar defining for the page
-      appBar: AppBar(
-        title: Text("PROCESO"),
-        backgroundColor: Colors.blueAccent,
+        body: IndexedStack(
+          index: _currentIndex,
+          children: screens,
+        ),
+        //screens[_currentIndex],
+        //Defining buttom navigation for user
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.lightBlue,
+            selectedItemColor: Colors.white,
+            iconSize: 22,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.calendar_today),
+                  label: "Calendar",
+                  backgroundColor: Colors.black12),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: "Home",
+                  backgroundColor: Colors.black12),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle_rounded),
+                  label: "User-Profile",
+                  backgroundColor: Colors.black12),
+            ],
+            //Using the buttomnavigation to naviagte t
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            }),
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: screens,
-      ),
-      //screens[_currentIndex],
-      //Defining buttom navigation for user
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.lightBlue,
-          selectedItemColor: Colors.white,
-          iconSize: 22,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today),
-                label: "Calendar",
-                backgroundColor: Colors.black12),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: "Home",
-                backgroundColor: Colors.black12),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle_rounded),
-                label: "User-Profile",
-                backgroundColor: Colors.black12),
-          ],
-          //Using the buttomnavigation to naviagte t
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          }),
     );
   }
 
@@ -181,11 +189,11 @@ class _homeState extends State<home> {
     required String text,
     required IconData icon, // Function() onClicked,
   }) {
-    final color = Colors.white;
+    const color = Colors.white;
 
     return ListTile(
       leading: Icon(icon, color: color),
-      title: Text(text, style: TextStyle(color: color)),
+      title: Text(text, style: const TextStyle(color: color)),
       onTap: onClicked,
     );
   }
@@ -195,25 +203,25 @@ class _homeState extends State<home> {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => home(),
+          builder: (context) => const home(),
         ));
         break;
 //navigating through the side bar
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
           //builder: (context) => processes(),
-          builder: (context) => processes(),
+          builder: (context) => const processes(),
         ));
         break;
 
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => listOne(),
+          builder: (context) => const listOne(),
         ));
         break;
       case 4:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => userStories(),
+          builder: (context) => const userStories(),
         ));
         break;
       case 5:

@@ -1,11 +1,8 @@
 //this page allows users to see their user profile and change their password
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:proces/Screens/Home/home.dart';
-import 'package:proces/controller/create_new_project_controller.dart';
-import 'package:proces/models/newprocess.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class userProfile extends StatefulWidget {
@@ -22,11 +19,11 @@ class _userProfileState extends State<userProfile> {
   Widget build(BuildContext context) {
     //retrieveing the current users email
     String? email; //''= FirebaseAuth.instance.currentUser!.email;
-    email = "aayushbasnet012@gmail.com";
-    String name = "Aayush";
+    email = "Enter your email address here";
+    String name = "Enter your name here";
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(left: 15, top: 20, right: 15),
+        padding: const EdgeInsets.only(left: 15, top: 20, right: 15),
         child: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
@@ -34,10 +31,10 @@ class _userProfileState extends State<userProfile> {
           child: ListView(
             //displaying the user details
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               buildTextField("Name", name, false),
               buildTextField("Email", email, false),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -53,7 +50,7 @@ class _userProfileState extends State<userProfile> {
                         )),
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
-                        padding: EdgeInsets.symmetric(horizontal: 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
@@ -74,13 +71,17 @@ class _userProfileState extends State<userProfile> {
       child: TextField(
         obscureText: isPasswordTextField ? isObscurePassword : false,
         decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(bottom: 5),
+            fillColor: const Color.fromARGB(255, 192, 225, 252),
+            filled: true,
+            contentPadding: const EdgeInsets.all(5),
             labelText: labelText,
+            labelStyle: const TextStyle(
+                fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             hintText: placeholder,
             hintStyle: const TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
               color: Colors.grey,
             )),
       ),
@@ -94,7 +95,8 @@ void showAlertDialog(BuildContext context) {
     child: const Text("OK"),
     onPressed: () {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => home()), (route) => true);
+          MaterialPageRoute(builder: (context) => const home()),
+          (route) => true);
     },
   );
   AlertDialog alert = AlertDialog(
@@ -142,7 +144,7 @@ Widget editSheet1(BuildContext context) {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: TextField(
               obscureText: isPasswordTextField ? isObscurePassword : true,
               decoration: const InputDecoration(
@@ -187,7 +189,8 @@ Widget editSheet1(BuildContext context) {
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => userProfile()),
+                    MaterialPageRoute(
+                        builder: (context) => const userProfile()),
                     (route) => true);
               },
               child: const Text("Cancel")),
